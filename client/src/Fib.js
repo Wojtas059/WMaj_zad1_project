@@ -28,11 +28,12 @@ class Fib extends Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
-
+    
     await axios.post('/api/values', {
       index: this.state.index,
     });
     this.setState({ index: '' });
+    window.location.reload();
   };
 
   renderSeenIndexes() {
@@ -56,25 +57,8 @@ class Fib extends Component {
     return entries;
   }
 
-
-  renderHistory() {
-    const entries= [];
-    await this.fetchValues();
-    await this.fetchIndexes();
-    return (
-      <div>
-        <h3>Indexes I have seen:</h3>
-        {this.renderSeenIndexes()}
-
-        <h3>Calculated Values:</h3>
-        {this.renderValues()}
-
-        Oto Strona z dokumentacja!<br/>
-        <Link to="/fib">Schowaj</Link>
-
-      </div>
-    );
-  }
+  
+  
 
 
   render() {
@@ -86,13 +70,25 @@ class Fib extends Component {
             value={this.state.index}
             onChange={(event) => this.setState({ index: event.target.value })}
           />
-          <button>Submit</button>
+          <button>Oblicz</button>
         </form>
 
-        <from onSubmit={this.renderHistory}>
-          <button>History</button>
-        </from>
+        <div>  <h3>Indexes I have seen:</h3>
+         {this.renderSeenIndexes()}
+         <h3>Calculated Values:</h3>
+        {this.renderValues()}
+        </div>
+        
+       
 
+        <br/>
+        <div> 
+        
+        <Link to="/fib">Schowaj</Link>
+        </div>
+      
+
+      <br/>
         Oto Strona z dokumentacja!<br/>
         <Link to="/">Wroc, jesli chcesz?!</Link>
         
